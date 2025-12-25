@@ -11,11 +11,12 @@ PascalString type invariants:
 */
 
 // Error codes
-enum PascalStringErrorCodes{
+enum PascalStringReturnCodes{
     PSTR_OK,
     PSTR_ERROR_ALLOC,
     PSTR_ERROR_TOO_LONG,
-    PSTR_ERROR_NULL_INPUT
+    PSTR_ERROR_NULL_INPUT,
+    PSTR_ERROR_OUT_OF_BOUNDS
 };
 
 typedef struct PascalString{
