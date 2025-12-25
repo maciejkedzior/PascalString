@@ -91,3 +91,73 @@ int pstring_set_char_at(pstring_t *s, char ch, uint8_t idx){
 
     return PSTR_OK;
 }
+
+int pstring_fill(pstring_t *s, const char *src, uint8_t src_len){
+    assert(s != NULL);
+    if (src == NULL){
+        return PSTR_ERROR_NULL_INPUT;
+    }
+
+    if (src_len == s->length){
+        memcpy(s->ptr, src, src_len);
+        return PSTR_OK;
+    }
+
+    if (src_len > s->capacity){
+        s->ptr = realloc(s->ptr, sizeof(char) * src_len);
+
+        if (s->ptr == NULL){
+            return PSTR_ERROR_ALLOC;
+        }
+
+        s->capacity = src_len;
+    }
+
+    memcpy(s->ptr, src, src_len);
+
+    if (src_len < s->length){
+        memset(s->ptr+src_len, 0, s->capacity-src_len);
+    }
+
+    s->length = src_len;
+    return PSTR_OK;
+}
+
+
+int pstring_fill_cstring(pstring_t *s, const char *c_str){
+    assert(s != NULL);
+    if (c_str == NULL){
+        return PSTR_ERROR_NULL_INPUT;
+    }
+
+    size_t raw_src_len = strlen(c_str);
+    if (raw_src_len > 255){
+        return PSTR_ERROR_TOO_LONG;
+    }
+
+    uint8_t src_len = raw_src_len;
+
+    if (src_len == s->length){
+        memcpy(s->ptr, c_str, src_len);
+        return PSTR_OK;
+    }
+
+    if (src_len > s->capacity){
+        s->ptr = realloc(s->ptr, sizeof(char) * src_len);
+
+        if (s->ptr == NULL){
+            return PSTR_ERROR_ALLOC;
+        }
+
+        s->capacity = src_len;
+    }
+
+    memcpy(s->ptr, c_str, src_len);
+
+    if (src_len < s->length){
+        memset(s->ptr+src_len, 0, s->capacity-src_len);
+    }
+
+    s->length = src_len;
+    return PSTR_OK;
+}

@@ -34,4 +34,9 @@ int pstring_destroy(pstring_t *s);
 
 char pstring_get_char_at(const pstring_t *s, uint8_t idx);
 int pstring_set_char_at(pstring_t *s, char ch, uint8_t idx);
+
+// Mutations
+int pstring_fill(pstring_t *s, const char *src, uint8_t src_len);
+int pstring_fill_cstring(pstring_t *s, const char *c_str);
+
 #endif
