@@ -29,4 +29,6 @@ int pstring_init_from_cstring(pstring_t *s, const char *c_str);
 int pstring_init_from_buffer(pstring_t *s, const char buffer[], uint8_t len);
 int pstring_destroy(pstring_t *s);
 
+
+char pstring_char_at(const pstring_t *s, uint8_t idx);
 #endif

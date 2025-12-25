@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
-#include "src/headers/pascal_string.h"
+#include "../headers/pascal_string.h"
 
 
 int pstring_init_empty(pstring_t *s){
@@ -67,3 +67,12 @@ int pstring_destroy(pstring_t *s){
     return PSTR_OK;
 }
 
+
+char pstring_char_at(const pstring_t *s, uint8_t idx){
+    assert(s != NULL);
+    
+    if (idx >= s->length){
+        return '\0';
+    }
+    return s->ptr[idx];
+}
