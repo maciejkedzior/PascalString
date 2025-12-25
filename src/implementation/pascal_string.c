@@ -76,3 +76,15 @@ char pstring_get_char_at(const pstring_t *s, uint8_t idx){
     }
     return s->ptr[idx];
 }
+
+int pstring_set_char_at(pstring_t *s, char ch, uint8_t idx){
+    assert(s != NULL);
+
+    if (idx >= s->length){
+        return PSTR_ERROR_OUT_OF_BOUNDS;
+    }
+
+    s->ptr[idx] = ch;
+
+    return PSTR_OK;
+}
