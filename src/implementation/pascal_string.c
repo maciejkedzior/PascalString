@@ -93,12 +93,13 @@ int pstring_set_char_at(pstring_t *s, char ch, uint8_t idx){
 }
 
 int pstring_reserve(pstring_t *s, uint8_t new_capacity){
-    s->ptr = realloc(s->ptr, sizeof(char) * new_capacity);
+    assert(s != NULL);
+    char *tmp = realloc(s->ptr, sizeof(char) * new_capacity);
 
-    if (s->ptr == NULL){
+    if (tmp == NULL){
         return PSTR_ERROR_ALLOC;
     }
-
+    s->ptr = tmp;
     s->capacity = new_capacity;
     return PSTR_OK;
 }
@@ -176,9 +177,12 @@ int pstring_clear(pstring_t *s){
 }
 
 int pstring_compare(const pstring_t *a, const pstring_t *b){
-    return strcmp(a->ptr, b->ptr);
+    uint8_t min_len = a->length < b->length ? a->length : b->length;
+    int cmp = memcmp(a->ptr, b->ptr, min_len);
+    if (cmp != 0) return cmp;
+    return (int)a->length - (int)b->length;
 }
 
 bool pstring_equals(const pstring_t *a, const pstring_t *b){
-    return pstring_compare(a, b) == 0;
+    return a->length == b->length && memcmp(a->ptr, b->ptr, a->length) == 0;
 }
