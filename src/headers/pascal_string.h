@@ -30,5 +30,5 @@ int pstring_init_from_buffer(pstring_t *s, const char buffer[], uint8_t len);
 int pstring_destroy(pstring_t *s);
 
 
-char pstring_char_at(const pstring_t *s, uint8_t idx);
+char pstring_get_char_at(const pstring_t *s, uint8_t idx);
 #endif

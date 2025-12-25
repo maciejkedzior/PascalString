@@ -68,7 +68,7 @@ int pstring_destroy(pstring_t *s){
 }
 
 
-char pstring_char_at(const pstring_t *s, uint8_t idx){
+char pstring_get_char_at(const pstring_t *s, uint8_t idx){
     assert(s != NULL);
     
     if (idx >= s->length){
