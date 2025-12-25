@@ -1,6 +1,7 @@
 #ifndef PASCAL_STRING
 #define PASCAL_STRING
 #include <stdint.h>
+#include <stdbool.h>
 
 /*
 PascalString type invariants:
@@ -38,5 +39,10 @@ int pstring_set_char_at(pstring_t *s, char ch, uint8_t idx);
 // Mutations
 int pstring_fill(pstring_t *s, const char *src, uint8_t src_len);
 int pstring_fill_cstring(pstring_t *s, const char *c_str);
+int pstring_clear(pstring_t *s);
+
+// Comparators
+int pstring_compare(const pstring_t *a, const pstring_t *b);
+bool pstring_equals(const pstring_t *a, const pstring_t *b);
 
 #endif

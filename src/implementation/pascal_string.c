@@ -161,3 +161,19 @@ int pstring_fill_cstring(pstring_t *s, const char *c_str){
     s->length = src_len;
     return PSTR_OK;
 }
+
+
+int pstring_clear(pstring_t *s){
+    assert(s != NULL);
+    memset(s->ptr, 0, s->length);
+    s->length = 0;
+    return PSTR_OK;
+}
+
+int pstring_compare(const pstring_t *a, const pstring_t *b){
+    return strcmp(a->ptr, b->ptr);
+}
+
+bool pstring_equals(const pstring_t *a, const pstring_t *b){
+    return pstring_compare(a, b) == 0;
+}
