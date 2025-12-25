@@ -5,9 +5,9 @@
 /*
 PascalString type invariants:
 1. ptr is never NULL
-2. PascalString has always length of 0 <= length <= 255
-3. ptr always points to some writable memory
-4. the buffer always contains at least length bytes (so no un-allocated memory)
+2. PascalString has always length of 0 <= length < capacity <= 255
+3. ptr always points to some writable memory of at least capacity bytes
+4. only first length bytes is valid data
 */
 
 // Error codes
@@ -22,6 +22,7 @@ enum PascalStringReturnCodes{
 typedef struct PascalString{
     char *ptr;
     uint8_t length;
+    uint8_t capacity;
 } pstring_t;
 
 int pstring_init_empty(pstring_t* s);

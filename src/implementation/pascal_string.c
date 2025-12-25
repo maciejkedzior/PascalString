@@ -9,6 +9,7 @@ int pstring_init_empty(pstring_t *s){
     s->ptr = calloc(1, sizeof(char));
     if (!s->ptr) return PSTR_ERROR_ALLOC;
     s->length = 0;
+    s->capacity = 1;
     return PSTR_OK;
 }
 
@@ -19,6 +20,7 @@ int pstring_init_from_length(pstring_t *s, uint8_t length){
     s->ptr = calloc(length, sizeof(char));
     if (!s->ptr) return PSTR_ERROR_ALLOC;
     s->length = length;
+    s->capacity = length;
     return PSTR_OK;
 }
 
@@ -64,6 +66,7 @@ int pstring_destroy(pstring_t *s){
     free(s->ptr);
     s->ptr = NULL;
     s->length = 0;
+    s->capacity = 0;
     return PSTR_OK;
 }
 
