@@ -23,10 +23,10 @@ typedef struct PascalString{
     uint8_t length;
 } pstring_t;
 
-int init_pstring_empty(pstring_t* s);
-int init_pstring_from_length(pstring_t *s, uint8_t length);
-int init_pstring_from_cstring(pstring_t *s, const char *c_str);
-int init_pstring_from_buffer(pstring_t *s, const char buffer[], uint8_t len);
-int destroy_pstring(pstring_t *s);
+int pstring_init_empty(pstring_t* s);
+int pstring_init_from_length(pstring_t *s, uint8_t length);
+int pstring_init_from_cstring(pstring_t *s, const char *c_str);
+int pstring_init_from_buffer(pstring_t *s, const char buffer[], uint8_t len);
+int pstring_destroy(pstring_t *s);
 
 #endif
