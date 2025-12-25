@@ -92,6 +92,17 @@ int pstring_set_char_at(pstring_t *s, char ch, uint8_t idx){
     return PSTR_OK;
 }
 
+int pstring_reserve(pstring_t *s, uint8_t new_capacity){
+    s->ptr = realloc(s->ptr, sizeof(char) * new_capacity);
+
+    if (s->ptr == NULL){
+        return PSTR_ERROR_ALLOC;
+    }
+
+    s->capacity = new_capacity;
+    return PSTR_OK;
+}
+
 int pstring_fill(pstring_t *s, const char *src, uint8_t src_len){
     assert(s != NULL);
     if (src == NULL){
@@ -104,13 +115,10 @@ int pstring_fill(pstring_t *s, const char *src, uint8_t src_len){
     }
 
     if (src_len > s->capacity){
-        s->ptr = realloc(s->ptr, sizeof(char) * src_len);
-
-        if (s->ptr == NULL){
-            return PSTR_ERROR_ALLOC;
+        int ret = pstring_reserve(s, src_len);
+        if (ret == PSTR_ERROR_ALLOC){
+            return ret;
         }
-
-        s->capacity = src_len;
     }
 
     memcpy(s->ptr, src, src_len);
@@ -143,13 +151,10 @@ int pstring_fill_cstring(pstring_t *s, const char *c_str){
     }
 
     if (src_len > s->capacity){
-        s->ptr = realloc(s->ptr, sizeof(char) * src_len);
-
-        if (s->ptr == NULL){
-            return PSTR_ERROR_ALLOC;
+        int ret = pstring_reserve(s, src_len);
+        if (ret == PSTR_ERROR_ALLOC){
+            return ret;
         }
-
-        s->capacity = src_len;
     }
 
     memcpy(s->ptr, c_str, src_len);

@@ -45,4 +45,7 @@ int pstring_clear(pstring_t *s);
 int pstring_compare(const pstring_t *a, const pstring_t *b);
 bool pstring_equals(const pstring_t *a, const pstring_t *b);
 
+// Size changes
+int pstring_reserve(pstring_t *s, uint8_t new_capacity);
+
 #endif
